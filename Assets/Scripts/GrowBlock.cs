@@ -17,7 +17,11 @@ public class GrowBlock : MonoBehaviour
     public SpriteRenderer theSR;
     public Sprite soilTiled, soilWatered;
 
+    public SpriteRenderer cropSR;
+    public Sprite cropPlanted, cropGrowing1, cropGrowing2, cropRipe;
+
     public bool isWatered;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,8 +37,13 @@ public class GrowBlock : MonoBehaviour
 
             SetSoilSprite();
         }*/
+#if UNITY_EDITOR
+        if (Keyboard.current.nKey.wasPressedThisFrame)
+        {
+            AdvanceCrop();
+        }
     }
-
+#endif
     public void AdvancedStage()
     {
         currentStage = currentStage + 1;
@@ -79,5 +88,63 @@ public class GrowBlock : MonoBehaviour
         isWatered = true;
 
         SetSoilSprite();
+    }
+
+    public void PlantCrop()
+    {
+        if(currentStage == GrowthStage.ploughed && isWatered)
+        {
+            currentStage = GrowthStage.planted;
+
+            UpdateCropSprite();
+        }
+    }
+
+    void UpdateCropSprite()
+    {
+        switch (currentStage)
+        {
+            case GrowthStage.planted:
+                cropSR.sprite = cropPlanted;
+                break;
+
+            case GrowthStage.growing1:
+                cropSR.sprite = cropGrowing1;
+                break;
+
+            case GrowthStage.growing2:
+                cropSR.sprite = cropGrowing2;
+                break;
+
+            case GrowthStage.ripe:
+                cropSR.sprite = cropRipe;
+                break;
+        }
+    }
+
+    public void AdvanceCrop()
+    {
+        if (isWatered)
+        {
+            if(currentStage == GrowthStage.planted || currentStage == GrowthStage.growing1 || currentStage == GrowthStage.growing2)
+            {
+                currentStage++;
+
+                isWatered = false;
+                SetSoilSprite();
+                UpdateCropSprite();
+            }
+        }
+    }
+
+    public void HarvestCrop()
+    {
+        if(currentStage == GrowthStage.ripe)
+        {
+            currentStage = GrowthStage.ploughed;
+
+            SetSoilSprite();
+            cropSR.sprite = null;
+        }
     }
 }
