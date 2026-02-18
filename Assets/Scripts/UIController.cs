@@ -17,7 +17,6 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SwitchTool(0);
     }
 
     public void SwitchTool(int selected)

@@ -34673,6 +34673,8 @@ MonoBehaviour:
   currentStage: 0
   theSR: {fileID: 628671573}
   soilTiled: {fileID: 6563066755110389082, guid: 290be3330cf84bc4d93460bae4e8d47f, type: 3}
+  soilWatered: {fileID: 8400690069364028037, guid: 290be3330cf84bc4d93460bae4e8d47f, type: 3}
+  isWatered: 0
 --- !u!4 &781714328
 Transform:
   m_ObjectHideFlags: 0
@@ -38097,6 +38099,7 @@ MonoBehaviour:
   actionInput: {fileID: 560269125}
   anim: {fileID: 2099618753}
   currentTool: 0
+  toolWaitTime: 0.5
 --- !u!70 &1007421221
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -38365,8 +38368,9 @@ GameObject:
   - component: {fileID: 1265324291}
   - component: {fileID: 1265324290}
   - component: {fileID: 1265324289}
+  - component: {fileID: 1265324293}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38456,6 +38460,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1265324293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265324288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef2fd3b3f4fb34d479c73cb704f50c3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIController
+  toolbarActivatorIcons:
+  - {fileID: 1145639981}
+  - {fileID: 1420878964}
+  - {fileID: 1112327154}
+  - {fileID: 393660652}
 --- !u!1 &1351646687
 GameObject:
   m_ObjectHideFlags: 0
