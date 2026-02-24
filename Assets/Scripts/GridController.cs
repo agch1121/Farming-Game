@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GridController : MonoBehaviour
@@ -6,6 +7,9 @@ public class GridController : MonoBehaviour
     public GrowBlock baseGridBlock;
 
     private Vector2Int gridSize; // Vector2의 x, y값을 정수값만 저장함
+    public List<BlockRow> blockRows = new List<BlockRow>();
+
+    public LayerMask gridBlockers;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,14 +37,30 @@ public class GridController : MonoBehaviour
 
         for (int y = 0; y < gridSize.y; y++)
         {
+            blockRows.Add(new BlockRow());
             for (int x = 0; x < gridSize.x; x++)
             {
                 GrowBlock newBlock = Instantiate(baseGridBlock, startpoint + new Vector3(x, y, 0f), Quaternion.identity);
 
                 newBlock.transform.SetParent(transform);
+
+                blockRows[y].blocks.Add(newBlock);
+
+                // 검사 박스 크기를 0.9로 하는 이유는 약간의 버퍼 공간을 생성해 가장자리에 걸쳐진 영역에 블록이 자라지 않는 문제를 방지를 위함
+                if (Physics2D.OverlapBox(newBlock.transform.position, new Vector2(.9f, .9f), 0f, gridBlockers))
+                {
+                    newBlock.theSR.sprite = null;
+                    newBlock.preventUse = true;
+                } 
             }
         }
 
         baseGridBlock.gameObject.SetActive(false);
     }
+}
+
+[System.Serializable] // 직렬화 설정 => 없으면 인스펙터 창에 해당 클래스를 사용한 배열 확인 불가
+public class BlockRow
+{
+    public List<GrowBlock> blocks = new List<GrowBlock>();
 }
