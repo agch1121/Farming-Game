@@ -36,8 +36,15 @@ public class PlayerController : MonoBehaviour
         moveInput.action.Enable();
         actionInput.action.Enable();
 
-        instance = this;
-        DontDestroyOnLoad(gameObject);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject); // 씬 복귀시 인스턴스가 2개가 있는걸 방지하기 위함
+        }
     }
 
     // Update is called once per frame
