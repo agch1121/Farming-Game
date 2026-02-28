@@ -3,6 +3,13 @@ using UnityEngine;
 
 public class GridController : MonoBehaviour
 {
+    public static GridController instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public Transform minPoint, maxPoint;
     public GrowBlock baseGridBlock;
 
@@ -43,6 +50,7 @@ public class GridController : MonoBehaviour
                 GrowBlock newBlock = Instantiate(baseGridBlock, startpoint + new Vector3(x, y, 0f), Quaternion.identity);
 
                 newBlock.transform.SetParent(transform);
+                newBlock.theSR.sprite = null;
 
                 blockRows[y].blocks.Add(newBlock);
 
@@ -56,6 +64,26 @@ public class GridController : MonoBehaviour
         }
 
         baseGridBlock.gameObject.SetActive(false);
+    }
+
+    public GrowBlock GetBlock(float x, float y)
+    {
+        x = Mathf.RoundToInt(x);
+        y = Mathf.RoundToInt(y);
+
+        x -= minPoint.position.x;
+        y -= minPoint.position.y;
+
+        // 목록 인덱스로 float값을 사용할 수 없으므로 int 값으로 치환
+        int intX = Mathf.RoundToInt(x);
+        int intY = Mathf.RoundToInt(y);
+
+        if (intX < gridSize.x && intY < gridSize.y)
+        {
+            return blockRows[intY].blocks[intX];
+        }
+
+        return null;
     }
 }
 

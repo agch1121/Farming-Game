@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class PlayerController : MonoBehaviour
 
     public InputActionReference moveInput, actionInput;
     public Animator anim;
-
+    public Transform toolIndicator;
+    public float toolRange = 3f;
     public enum ToolType
     {
         plough,
@@ -105,15 +107,32 @@ public class PlayerController : MonoBehaviour
         }
 
         anim.SetFloat("speed", theRB.linearVelocity.magnitude);
+
+        toolIndicator.position = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        toolIndicator.position = new Vector3(toolIndicator.position.x, toolIndicator.position.y, 0f);
+
+        if(Vector3.Distance(toolIndicator.position, transform.position) > toolRange)
+        {
+            Vector2 direction = toolIndicator.position - transform.position; // Vector2의 경우 z값이 없으므로 정규화가 가능하지만
+            direction = direction.normalized * toolRange;
+            toolIndicator.position = transform.position + new Vector3(direction.x, direction.y, 0f);
+            // Vector3의 경우 z값에 따라 정규화시 길이가 앞으로 가거나 뒤로 가면서 길이가 더 짧아 질 수 있음
+        }
+
+        toolIndicator.position = new Vector3(Mathf.FloorToInt(toolIndicator.position.x) + .5f,
+            Mathf.FloorToInt(toolIndicator.position.y) + .5f, 0f);
     }
 
     void UseTool()
     {
         GrowBlock block = null;
 
-        block = FindFirstObjectByType<GrowBlock>();
+        //block = FindFirstObjectByType<GrowBlock>();
 
         //block.PloughSoil();
+
+        block = GridController.instance.GetBlock(toolIndicator.position.x - .5f, toolIndicator.position.y - .5f);
+        // GetBlock에서 다시 반올림을 해버릴경우 중간값이 사라지므로 0.5f를 다시 빼줌
 
         toolWaitCounter = toolWaitTime;
 
