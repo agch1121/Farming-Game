@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+
     public Rigidbody2D theRB;
     public float moveSpeed;
 
@@ -34,6 +35,9 @@ public class PlayerController : MonoBehaviour
         // 게임이 시작될 때 이 액션을 사용하겠다고 선언
         moveInput.action.Enable();
         actionInput.action.Enable();
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
