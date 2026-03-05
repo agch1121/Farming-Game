@@ -108,30 +108,39 @@ public class PlayerController : MonoBehaviour
             hasSwitchedTool = true;
         }
 
-        if(hasSwitchedTool == true)
+        if (hasSwitchedTool == true)
+        {
             //FindFirstObjectByType<UIController>().SwitchTool((int)currentTool);
             UIController.instance.SwitchTool((int)currentTool);
-
-        if (actionInput.action.WasPressedThisFrame())
-        {
-            UseTool();
         }
 
         anim.SetFloat("speed", theRB.linearVelocity.magnitude);
 
-        toolIndicator.position = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        toolIndicator.position = new Vector3(toolIndicator.position.x, toolIndicator.position.y, 0f);
-
-        if(Vector3.Distance(toolIndicator.position, transform.position) > toolRange)
+        if (GridController.instance != null)
         {
-            Vector2 direction = toolIndicator.position - transform.position; // Vector2의 경우 z값이 없으므로 정규화가 가능하지만
-            direction = direction.normalized * toolRange;
-            toolIndicator.position = transform.position + new Vector3(direction.x, direction.y, 0f);
-            // Vector3의 경우 z값에 따라 정규화시 길이가 앞으로 가거나 뒤로 가면서 길이가 더 짧아 질 수 있음
-        }
+            if (actionInput.action.WasPressedThisFrame())
+            {
+                UseTool();
+            }
 
-        toolIndicator.position = new Vector3(Mathf.FloorToInt(toolIndicator.position.x) + .5f,
-            Mathf.FloorToInt(toolIndicator.position.y) + .5f, 0f);
+            toolIndicator.position = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            toolIndicator.position = new Vector3(toolIndicator.position.x, toolIndicator.position.y, 0f);
+
+            if (Vector3.Distance(toolIndicator.position, transform.position) > toolRange)
+            {
+                Vector2 direction = toolIndicator.position - transform.position; // Vector2의 경우 z값이 없으므로 정규화가 가능하지만
+                direction = direction.normalized * toolRange;
+                toolIndicator.position = transform.position + new Vector3(direction.x, direction.y, 0f);
+                // Vector3의 경우 z값에 따라 정규화시 길이가 앞으로 가거나 뒤로 가면서 길이가 더 짧아 질 수 있음
+            }
+
+            toolIndicator.position = new Vector3(Mathf.FloorToInt(toolIndicator.position.x) + .5f,
+                Mathf.FloorToInt(toolIndicator.position.y) + .5f, 0f);
+        }
+        else
+        {
+            toolIndicator.position = new Vector3(0f, 0f, -20f); // 농장씬이 아니라면 도구 인디케이터를 카메라 뒤로 이동시켜서 가림
+        }
     }
 
     void UseTool()
