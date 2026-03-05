@@ -62,6 +62,17 @@ public class GridController : MonoBehaviour
                     newBlock.theSR.sprite = null;
                     newBlock.preventUse = true;
                 } 
+
+                if(GridInfo.instance.hasGrid == true)
+                {
+                    BlockInfo storedBlcok = GridInfo.instance.theGrid[y].blocks[x];
+
+                    newBlock.currentStage = storedBlcok.currentStage;
+                    newBlock.isWatered = storedBlcok.isWatered;
+
+                    newBlock.SetSoilSprite();
+                    newBlock.UpdateCropSprite();
+                }
             }
         }
 
