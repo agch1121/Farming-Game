@@ -52,6 +52,8 @@ public class GridController : MonoBehaviour
                 newBlock.transform.SetParent(transform);
                 newBlock.theSR.sprite = null;
 
+                newBlock.SetGridPosition(x, y);
+
                 blockRows[y].blocks.Add(newBlock);
 
                 // 검사 박스 크기를 0.9로 하는 이유는 약간의 버퍼 공간을 생성해 가장자리에 걸쳐진 영역에 블록이 자라지 않는 문제를 방지를 위함
@@ -61,6 +63,11 @@ public class GridController : MonoBehaviour
                     newBlock.preventUse = true;
                 } 
             }
+        }
+
+        if(GridInfo.instance.hasGrid == false)
+        {
+            GridInfo.instance.CreateGrid();
         }
 
         baseGridBlock.gameObject.SetActive(false);
