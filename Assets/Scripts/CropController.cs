@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -87,4 +86,8 @@ public class CropInfo
     public Sprite finalCrop, seedType, planted, growStage1, growStage2, ripe;
 
     public int seedAmount, cropAmount;
+
+    // 작물의 성장 여부 확률
+    [Range(0f, 100f)]
+    public float growthFailChance;
 }
