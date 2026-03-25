@@ -80,6 +80,12 @@ public class GridInfo : MonoBehaviour
                     // 작물 성장 후 물뿌림 상태 초기화 -> 연속 성장을 막기 위함
                     theGrid[y].blocks[x].isWatered = false;
                 }
+
+                // 당일에 경작한 땅에 어떤 작물을 심지않거나 물을 주지 않은경우 다음날 일반땅으로 초기화
+                if (theGrid[y].blocks[x].currentStage == GrowBlock.GrowthStage.ploughed)
+                {
+                    theGrid[y].blocks[x].currentStage = GrowBlock.GrowthStage.barren;
+                }
             }
         }
     }
