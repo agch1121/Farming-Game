@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public float toolWaitTime = .5f;
     private float toolWaitCounter;
 
+    public CropController.CropType seedCropType;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -171,7 +172,12 @@ public class PlayerController : MonoBehaviour
                     break;
 
                 case ToolType.seeds:
-                    block.PlantCrop();
+                    if (CropController.instance.GetCropInfo(seedCropType).seedAmount > 0)
+                    {
+                        block.PlantCrop(seedCropType);
+                        CropController.instance.UseSeed(seedCropType);
+                    }
+
                     break;
 
                 case ToolType.basket:
