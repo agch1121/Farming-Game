@@ -51,7 +51,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(UIController.instance != null)
+        {
+            if(UIController.instance.theIC != null)
+            {
+                if(UIController.instance.theIC.gameObject.activeSelf == true)
+                {
+                    theRB.linearVelocity = Vector2.zero; // 인벤토리 창이 열려있다면 플레이어 정지
+                    return;
+                }
+            }
+        }
         if (toolWaitCounter > 0)
         {
             toolWaitCounter -= Time.deltaTime;
@@ -175,7 +185,7 @@ public class PlayerController : MonoBehaviour
                     if (CropController.instance.GetCropInfo(seedCropType).seedAmount > 0)
                     {
                         block.PlantCrop(seedCropType);
-                        CropController.instance.UseSeed(seedCropType);
+                        //CropController.instance.UseSeed(seedCropType); // 해당 씨앗이 정상적으로 심어졌는지 확인하지 않고 카운트해버림
                     }
 
                     break;
@@ -185,5 +195,10 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void SwitchSeed(CropController.CropType newSeed)
+    {
+        seedCropType = newSeed;
     }
 }

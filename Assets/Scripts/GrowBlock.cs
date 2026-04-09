@@ -110,6 +110,10 @@ public class GrowBlock : MonoBehaviour
             cropType = cropToPlant;
 
             growFailChance = CropController.instance.GetCropInfo(cropType).growthFailChance;
+
+            // 해당 함수는 괭이질을 하고 물을 준 상태일때만 동작하므로 정상적으로 씨앗 소모 카운팅이 가능해짐
+            CropController.instance.UseSeed(cropToPlant);
+
             UpdateCropSprite();
         }
     }
