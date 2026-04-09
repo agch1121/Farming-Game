@@ -8,15 +8,18 @@ public class InventoryController : MonoBehaviour
 
     public void OpenClose()
     {
-        if (gameObject.activeSelf == false) // 게임 오브젝트가 비활성화 상태일경우
+        if (UIController.instance.theShop.gameObject.activeSelf == false)
         {
-            gameObject.SetActive(true);
+            if (gameObject.activeSelf == false) // 게임 오브젝트가 비활성화 상태일경우
+            {
+                gameObject.SetActive(true);
 
-            UpdateDisplay();
-        }
-        else
-        {
-            gameObject.SetActive(false);
+                UpdateDisplay();
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 
