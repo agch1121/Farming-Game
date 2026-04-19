@@ -77,6 +77,17 @@ public class CropController : MonoBehaviour
             }
         }
     }
+
+    public void AddSeed(CropType SeedToAdd, int amount)
+    {
+        foreach(CropInfo info in cropList)
+        {
+            if(info.cropType == SeedToAdd)
+            {
+                info.seedAmount += amount;
+            }
+        }
+    }
 }
 
 [System.Serializable]
@@ -90,4 +101,6 @@ public class CropInfo
     // 작물의 성장 여부 확률
     [Range(0f, 100f)]
     public float growthFailChance;
+
+    public float seedPrice, cropPrice;
 }

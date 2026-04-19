@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ShopController : MonoBehaviour
 {
+    public ShopSeedDisplay[] seeds;
+
     // 상점 창 열고 닫기 기능
     public void OpenClose()
     {
@@ -9,6 +11,14 @@ public class ShopController : MonoBehaviour
         if (UIController.instance.theIC.gameObject.activeSelf == false)
         {
             gameObject.SetActive(!gameObject.activeSelf); // 이미 상점창이 켜져있다면 비활성화 시킴
+
+            if(gameObject.activeSelf == true)
+            {
+                foreach (ShopSeedDisplay seed in seeds)
+                {
+                    seed.UpdateDisplay();
+                }
+            }
         }
     }
     
