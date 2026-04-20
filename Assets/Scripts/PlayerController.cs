@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         UIController.instance.SwitchTool((int)currentTool);
+
+        // 처음 시작할때 씨앗 작물 유형 지정
+        UIController.instance.SwitchSeed(seedCropType);
     }
     void Awake()
     {

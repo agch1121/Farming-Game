@@ -17,17 +17,26 @@ public class CurrencyController : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        UIController.instance.UpdateMoneyText(currentMoney);
+    }
+
     // 현재 보유 자금 추적
     public float currentMoney;
 
     public void SpendMoney(float amountToSpend)
     {
         currentMoney -= amountToSpend;
+
+        UIController.instance.UpdateMoneyText(currentMoney);
     }
 
     public void AddMoney(float amountToAdd)
     {
         currentMoney += amountToAdd;
+
+        UIController.instance.UpdateMoneyText(currentMoney);
     }
 
     public bool CheckMoney(float amount)

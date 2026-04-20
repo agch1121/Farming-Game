@@ -3,6 +3,7 @@ using UnityEngine;
 public class ShopController : MonoBehaviour
 {
     public ShopSeedDisplay[] seeds;
+    public ShopCropDisplay[] crops;
 
     // 상점 창 열고 닫기 기능
     public void OpenClose()
@@ -18,8 +19,13 @@ public class ShopController : MonoBehaviour
                 {
                     seed.UpdateDisplay();
                 }
+
+                foreach (ShopCropDisplay crop in crops)
+                {
+                    crop.UpdateDisplay();
+                }
             }
         }
     }
-    
+   
 }
