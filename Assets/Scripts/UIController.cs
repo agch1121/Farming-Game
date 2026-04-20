@@ -23,7 +23,10 @@ public class UIController : MonoBehaviour
     public TMP_Text timeText;
 
     public InventoryController theIC;
+    public ShopController theShop;
     public Image seedImage;
+
+    public TMP_Text moneyText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -37,7 +40,14 @@ public class UIController : MonoBehaviour
         {
             theIC.OpenClose();
         }
+// 에디터 상태일때만 B키를 눌러 상점창 오픈 가능
+#if UNITY_EDITOR
+        if (Keyboard.current.bKey.wasPressedThisFrame)
+        {
+            theShop.OpenClose();
+        }
     }
+#endif
 
     public void SwitchTool(int selected)
     {
@@ -76,5 +86,10 @@ public class UIController : MonoBehaviour
     public void SwitchSeed(CropController.CropType crop)
     {
         seedImage.sprite = CropController.instance.GetCropInfo(crop).seedType;
+    }
+
+    public void UpdateMoneyText(float currentMoney)
+    {
+        moneyText.text = "$" + currentMoney;
     }
 }

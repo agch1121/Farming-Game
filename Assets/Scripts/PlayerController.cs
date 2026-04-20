@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         UIController.instance.SwitchTool((int)currentTool);
+
+        // 처음 시작할때 씨앗 작물 유형 지정
+        UIController.instance.SwitchSeed(seedCropType);
     }
     void Awake()
     {
@@ -58,6 +61,15 @@ public class PlayerController : MonoBehaviour
                 if(UIController.instance.theIC.gameObject.activeSelf == true)
                 {
                     theRB.linearVelocity = Vector2.zero; // 인벤토리 창이 열려있다면 플레이어 정지
+                    return;
+                }
+            }
+
+            if (UIController.instance.theShop != null)
+            {
+                if (UIController.instance.theShop.gameObject.activeSelf == true)
+                {
+                    theRB.linearVelocity = Vector2.zero;
                     return;
                 }
             }
