@@ -40,12 +40,14 @@ public class UIController : MonoBehaviour
         {
             theIC.OpenClose();
         }
-
+// 에디터 상태일때만 B키를 눌러 상점창 오픈 가능
+#if UNITY_EDITOR
         if (Keyboard.current.bKey.wasPressedThisFrame)
         {
             theShop.OpenClose();
         }
     }
+#endif
 
     public void SwitchTool(int selected)
     {
