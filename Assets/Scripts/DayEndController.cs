@@ -16,6 +16,10 @@ public class DayEndController : MonoBehaviour
         {
             dayText.text = "- Day " + TimeController.instance.currentDay + " -";
         }
+
+        AudioManager.instance.PauseMusic();
+
+        AudioManager.instance.PlaySFX(1);
     }
 
     // Update is called once per frame
@@ -25,6 +29,7 @@ public class DayEndController : MonoBehaviour
         {
             TimeController.instance.StartDay();
 
+            AudioManager.instance.ResumeMusic();
 
             SceneManager.LoadScene(wakeUpScene);
         }

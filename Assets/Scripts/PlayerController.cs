@@ -69,7 +69,16 @@ public class PlayerController : MonoBehaviour
             {
                 if (UIController.instance.theShop.gameObject.activeSelf == true)
                 {
-                    theRB.linearVelocity = Vector2.zero;
+                    theRB.linearVelocity = Vector2.zero; // 상점 창이 열려있다면 플레이어 정지
+                    return;
+                }
+            }
+
+            if (UIController.instance.pauseScreen != null)
+            {
+                if (UIController.instance.pauseScreen.gameObject.activeSelf == true)
+                {
+                    theRB.linearVelocity = Vector2.zero; // 일시정지 창이 열려있다면 플레이어 정지
                     return;
                 }
             }
