@@ -40966,7 +40966,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &612720180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48793,7 +48793,7 @@ MonoBehaviour:
   toolRange: 3
   currentTool: 0
   toolWaitTime: 0.5
-  seedCropType: 4
+  seedCropType: 0
 --- !u!70 &1007421221
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
