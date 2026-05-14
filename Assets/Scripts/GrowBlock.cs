@@ -43,13 +43,13 @@ public class GrowBlock : MonoBehaviour
 
             SetSoilSprite();
         }*/
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         if (Keyboard.current.nKey.wasPressedThisFrame)
         {
             AdvanceCrop();
         }
     }
-#endif
+//#endif
     public void AdvancedStage()
     {
         currentStage = currentStage + 1;
